@@ -154,6 +154,7 @@ class Recorder():
         parser.add_argument('-d', '--device', default="-1", dest="device", type=int, help="Select a different microphone (give device ID)")
         #parser.add_argument('-k', '--keep-going', action="store_true", help="Keep reconnecting to the server after periods of silence")
         #parser.add_argument('-g', '--audio-gate', default=0, type=int, help="Audio-gate level to reduce detections when not talking")
+        parser.add_argument('-s', '--samplerate', default="16000", dest="samplerate", type=int, help="Audio sample rate (Hz)")
         parser.add_argument('-o', '--output-directory', default='.', help="Directory to save recorded audio and keystrokes")
         parser.add_argument('-n', '--name', default='rec', help="Name of recordings, useful to tag with physical location")
         parser.add_argument('-f', '--file-format', default='flac', help="Audio file format to use (suggest wav, flac)")
@@ -165,7 +166,7 @@ class Recorder():
         filename_prefix = args.output_directory + '/' + args.name + "-" + filename_time
 
         if(args.log_audio):
-            self.speech_recorder = SpeechRecorder(byterate=16000, mic=args.device,
+            self.speech_recorder = SpeechRecorder(byterate=args.samplerate, mic=args.device,
                 filename=filename_prefix + "." + args.file_format)
             self.speech_recorder.start()
 
